@@ -1,37 +1,38 @@
-#include <stdio.h>
-#define MAX 100
-void printDigit(int N);
-int main()
+#include<stdio.h>
+#include<math.h>
+int remove_zeros(int n)
 {
-	int N;
-	printf("enter the number:\t");
-	scanf("%d",&N);
-    printDigit(N);
-	return 0;
-}
-void printDigit(int N)
-{
-	int arr[MAX];
-	int i = 0;
-	int j, r;
-    while (N != 0) 
-	{
-        r = N % 10;
-         N = N / 10;
+    
+    int r, num = 0;
+    // removing zeros from n and storing the number in num
+    while(n > 0)
+    {
+        r = n % 10;
+        n = n / 10;
         if(r!=0)
         {
-        arr[i] = r;
-		i++;
+            num = num*10 + r;
         }
-        else 
-        {
-        continue;
-        }
-       
-	}
-		printf("the digits in the number without zero's are:\n");
-    for (j = i - 1; j > -1; j--) 
-	{
-		printf("%d", arr[j]);
-	}
+    }
+    
+    // we need to reverse num to obtain final answer since the above loop
+    // stores digits in num in reverse order
+    n = num;
+    num = 0;
+    while(n>0)
+    {
+        r = n % 10;
+        n = n / 10;
+        num = num*10 + r;
+    }
+    
+    return num;
+    
+}
+int main()
+{
+    int n;
+    printf("Enter a Number: ");
+    scanf("%d", &n);
+    printf("Number after removing zeros = %d", remove_zeros(n));
 }
